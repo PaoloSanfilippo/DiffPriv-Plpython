@@ -1,0 +1,4 @@
+# diffprivlib extension
+comment = 'differential privacy library'
+default_version = '1.0'
+relocatable = true
