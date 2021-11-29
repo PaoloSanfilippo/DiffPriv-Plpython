@@ -13,7 +13,7 @@ The extension is divided into two modules: statistical functions and machine lea
 #### Statistical Functions
 This set of features aims to replicate the predefined aggregate functions of "PostgreSQL" that allow you to do simple statistical analyzes on data samples (eg avg, sum, etc. ..), adding noise modeled through Differential Privacy mechanisms.
 The functions created are as follows:
-| Aggregate Function  | functionality |
+| Aggregate Function  | Functionality |
 | ------------- | ------------- |
 | dp_avg  | Average  |
 | dp_avg_nan  |Average ignoring Nans |
@@ -28,6 +28,11 @@ The functions created are as follows:
 | dp_median | Median  |
 | dp_histogram| Histogram  |
 #### Machine Learning
+The Machine Learning extension module creates a set of functions written in the "Pl / Python" language that allow the creation of Machine Learning models. These models can be saved in the form of a sequence of bytes, in a predefined table of the extension: "models".
+The models implemented are the following:
+- Supervised Learning: Gaussian classifier, logistic regression, linear regression.
+- Unsupervised Learning: Kmeans.
+In addition, the “Principal Component Analysis” and the “Standard Scaler” are also implemented. The PCA allows to carry out the reduction of the linear dimensionality using the “Singular Value Decomposition” of the data to project them on a lower dimensional space. The "Standard Scaler" allows you to standardize features by removing the mean and scaling the variance to the unit.
 ## Examples of use:
 ### Statistical Functions
 
