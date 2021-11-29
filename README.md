@@ -32,6 +32,7 @@ The Machine Learning extension module creates a set of functions written in the 
 The models implemented are the following:
 - Supervised Learning: Gaussian classifier, logistic regression, linear regression.
 - Unsupervised Learning: Kmeans.
+
 In addition, the “Principal Component Analysis” and the “Standard Scaler” are also implemented. The PCA allows to carry out the reduction of the linear dimensionality using the “Singular Value Decomposition” of the data to project them on a lower dimensional space. The "Standard Scaler" allows you to standardize features by removing the mean and scaling the variance to the unit.
 ## Examples of use:
 ### Statistical Functions
