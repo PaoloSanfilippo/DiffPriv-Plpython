@@ -8,8 +8,28 @@ The extension is based on the use of the Python library [DiffPrivLib](https://gi
 4. Install the extension Pl/Python in the database using the command: "create extension plpython3u"
 5. Put diffprivlib.control and diffprivlib--1.0.sql in the “SHAREDIR/extension” directory located in the PostgreSQL installation directory. Alternatively you can create a makefile, and run the command "Make install".
 6. Install the extension DiffPrivLib in the database using the command: "create extension diffprivlib"
+## Structure:
+The extension is divided into two modules: statistical functions and machine learning 
+#### Statistical Functions
+This set of features aims to replicate the predefined aggregate functions of "PostgreSQL" that allow you to do simple statistical analyzes on data samples (eg avg, sum, etc. ..), adding noise modeled through Differential Privacy mechanisms.
+The functions created are as follows:
+| Aggregate Function  | functionality |
+| ------------- | ------------- |
+| dp_avg  | Average  |
+| dp_avg_nan  |Average ignoring Nans |
+| dp_sum | Sum  |
+| dp_sum_nan  | Sum ignoring Nans  |
+| dp_var_pop | Variance  |
+| dp_var_pop_nan  | Variance ignoring Nans  |
+| dp_std_pop | Standard Deviation |
+| dp_std_pop_nan  | Standard Deviation ignoring Nans   |
+| dp_percentile | Percentile  |
+| dp_quantile | Quantile |
+| dp_median | Median  |
+| dp_histogram| Histogram  |
+#### Machine Learning
 ## Examples of use:
-### Statistics
+### Statistical Functions
 
 ### Machine Learning Models
 
