@@ -10,7 +10,7 @@ The extension is based on the use of the Python library [DiffPrivLib](https://gi
 6. Install the extension DiffPrivLib in the database using the command: "create extension diffprivlib"
 ## Structure:
 The extension is divided into two modules: statistical functions and machine learning 
-#### Statistical Functions
+### Statistical Functions
 This set of features aims to replicate the predefined aggregate functions of "PostgreSQL" that allow you to do simple statistical analyzes on data samples (eg avg, sum, etc. ..), adding noise modeled through Differential Privacy mechanisms.
 The functions created are as follows:
 | Aggregate Function  | Functionality |
@@ -27,7 +27,7 @@ The functions created are as follows:
 | dp_quantile | Quantile |
 | dp_median | Median  |
 | dp_histogram| Histogram  |
-#### Machine Learning
+### Machine Learning
 The Machine Learning extension module creates a set of functions written in the "Pl / Python" language that allow the creation of Machine Learning models. These models can be saved in the form of a sequence of bytes, in a predefined table of the extension: "models".
 The models implemented are the following:
 - Supervised Learning: Gaussian classifier, logistic regression, linear regression.
