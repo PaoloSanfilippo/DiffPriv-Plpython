@@ -41,27 +41,27 @@ In addition, the “Principal Component Analysis” and the “Standard Scaler�
 ## Examples of use:
 ### Statistical Functions
 Let's imagine that we want to calculate in a differentially private way the average of the insurance costs of a set of individuals in the "insurance" table:
-```
+```sql
 select dp_avg(chrges,0.8,1000,1400) from insurance;
 ```
 ### Machine Learning Models
 Let's imagine we want to create a classifier. To do this we use, as training data, one of the best known and most used datasets: “iris”.
 First we create the model and store it in the default table "models":
-```
+```sql
 insert into models values('gaussianNB_1',GaussianNB('iris','species',epsi:=0.8),'GaussianNB');
 ```
 After creating the model, you can use it to make predictions; to do this, there are two versions of the “predict” function. The first takes as an argument directly an array containing the values of the features:
-```
+```sql
 select predict(model,array[[0.5,0.5,0.5,0.5]]) from models
 WHERE models.model_name='gaussianNB_1';
 ```
 The second version of the function allows you to directly pass the name of the table from which to extrapolate the data:
-```
+```sql
 select predict(model,'iris_test') from models
 WHERE models.model_name='gaussianNB_1';
 ```
 The score function can be used to calculate the accuracy of the model:
-```
+```sql
 select score(model,'iris_test','species') from models
 WHERE models.model_name='gaussianNB_1';
 ```
@@ -71,6 +71,6 @@ The implementation of the functions that allow the "Principal Component Analysis
 - Standard Scaler: The original features to which scaling has been applied.
 
 Let's imagine we want to reduce the dimensional space of the iris dataset in a differentially private way, and save the result in the new table named “iris_pca”:
-```
+```sql
 select PCA(2,'iris','iris_pca',epsi:=0,8);
 ```
