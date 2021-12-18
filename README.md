@@ -38,7 +38,7 @@ The models implemented are the following:
 In addition, the “Principal Component Analysis” and the “Standard Scaler” are also implemented. The PCA allows to carry out the reduction of the linear dimensionality using the “Singular Value Decomposition” of the data to project them on a lower dimensional space. The "Standard Scaler" allows you to standardize features by removing the mean and scaling the variance to the unit.
 ## Examples of use:
 ### Statistical Functions
-Let's imagine that we want to calculate in a differentially private way the average of the insurance costs of a set of individuals in the "insurance" table.
+Let's imagine that we want to calculate in a differentially private way the average of the insurance costs of a set of individuals in the "insurance" table:
 ```
 select dp_avg(charges) from insurance;
 select dp_avg(charges,0.8) from insurance;
@@ -46,30 +46,31 @@ select dp_avg(chrges,0.8,1000,1400) from insurance;
 ```
 ### Machine Learning Models
 Let's imagine we want to create a classifier. To do this we use, as training data, one of the best known and most used datasets: “iris”.
-First we create the model and store it in the default table "models".
+First we create the model and store it in the default table "models":
 ```
 insert into models values('gaussianNB_1',GaussianNB('iris','species',epsi:=0.8),'GaussianNB');
 ```
-After creating the model, you can use it to make predictions; to do this, there are two versions of the “predict” function. The first takes as an argument directly an array containing the values of the features.
+After creating the model, you can use it to make predictions; to do this, there are two versions of the “predict” function. The first takes as an argument directly an array containing the values of the features:
 ```
 select predict(model,array[[0.5,0.5,0.5,0.5]]) from models
 WHERE models.model_name='gaussianNB_1';
 ```
-Or, you can pass the name of the table from which to extract the data to the function
+The second version of the function allows you to directly pass the name of the table from which to extrapolate the data:
 ```
 select predict(model,'iris_test') from models
 WHERE models.model_name='gaussianNB_1';
 ```
-The score function can be used to calculate the accuracy of the model.
+The score function can be used to calculate the accuracy of the model:
 ```
 select score(model,'iris_test','species') from models
 WHERE models.model_name='gaussianNB_1';
 ```
 ### PCA and Standard Scaler
 The implementation of the functions that allow the "Principal Component Analysis" and the "Standard Scaler" follow the same pattern. These functions receive a series of parameters and create new tables containing:
--PCA: n new features, with n parameter given.
--Standard Scaler: The original features to which scaling has been applied.
-Let's imagine we want to reduce the dimensional space of the iris dataset in a differentially private way, and save the result in the new table named “iris_pca”.
+- PCA: n new features, with n parameter given.
+- Standard Scaler: The original features to which scaling has been applied.
+
+Let's imagine we want to reduce the dimensional space of the iris dataset in a differentially private way, and save the result in the new table named “iris_pca”:
 ```
 select PCA(2,'iris','iris_pca',epsi:=0,8);
 ```
