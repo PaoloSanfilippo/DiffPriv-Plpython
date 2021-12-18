@@ -1271,7 +1271,7 @@ return str(ret)
 
 $$ LANGUAGE plpython3u;
 
-/*
+
 /*
 Return predictions of a model on a set of data extracted from database
 Parameters
@@ -1281,7 +1281,6 @@ table_name_x : text
     name of the table from which to extract the data 
 columns_x : text[]
     the names of the columns of the table table_name from which to extract the data
-*/
 */
 CREATE OR replace FUNCTION predict(model bytea,table_name_x text,
     columns_x text[] default NULL) 
@@ -1355,7 +1354,22 @@ return model_Py.score(df._get_numeric_data(),df2)
 $$ LANGUAGE plpython3u;
 
 
-
+/*
+Create, using Differential Privacy, a new table which is the result of the reduction of dimensionality of a given table
+Parameters
+n_components: int
+    number of features to be obtained after the transformation. If this parameter is greater than or equal to the number of features in the input table, an exception is raised.
+table_name_input: text
+    name of the table from which to extrapolate the data set on which you want to make the reduction in size.
+table_name_output: text
+    name of the table where to store the transformed data.
+columns: text[]
+    array of strings specifying table column names, from which to extract data. If a value is not passed for this parameter, all numeric columns of the table will be used by default.
+epsi: real
+    value of the epsilon parameter. If not set, the same priority order already described in the extension statistics module will be used.
+bound_min7 bound_max. real
+    value for the limits of computation.
+*/
 CREATE OR REPLACE FUNCTION PCA(n_components int,table_name_input text,table_name_output text,
     columns text[] default NULL,epsi real DEFAULT 0,bound_min real DEFAULT NULL,bound_max real DEFAULT NULL) 
 RETURNS text AS
@@ -1414,7 +1428,20 @@ return 'Table '+table_name_output+' created!'
 $$ LANGUAGE plpython3u;
 
 
-
+/*
+Create, using Differential Privacy, a new table which is the result of standardization of features by removing the mean and scaling the variance to the unit.
+Parameters
+table_name_input: text
+    name of the table from which to extrapolate the data set on which you want to make the reduction in size.
+table_name_output: text
+    name of the table where to store the transformed data.
+columns: text[]
+    array of strings specifying table column names, from which to extract data. If a value is not passed for this parameter, all numeric columns of the table will be used by default.
+epsi: real
+    value of the epsilon parameter. If not set, the same priority order already described in the extension statistics module will be used.
+bound_min7 bound_max. real
+    value for the limits of computation.
+*/
 CREATE OR REPLACE FUNCTION StandardScaler(table_name_input text,table_name_output text,columns text[] default NULL,epsi real DEFAULT 0,bound_min real DEFAULT NULL,bound_max real DEFAULT NULL) RETURNS text AS
 $$
 
