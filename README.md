@@ -71,5 +71,5 @@ The implementation of the functions that allow the "Principal Component Analysis
 -Standard Scaler: The original features to which scaling has been applied.
 Let's imagine we want to reduce the dimensional space of the iris dataset in a differentially private way, and save the result in the new table named “iris_pca”.
 ```
-select PCA(2,'iris','iris_pca,epsi:=0,8);
+select PCA(2,'iris','iris_pca',epsi:=0,8);
 ```
