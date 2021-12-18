@@ -1,19 +1,21 @@
 # DiffPivLib PostgreSQL Extension 
-Extension for Postgresql database that allows you to perform simple statistical analyzes and machine learning tasks privately using Differential Privacy. 
-The extension is based on the use of the Python library [DiffPrivLib](https://github.com/IBM/differential-privacy-library) that thanks to the use of language [Pl/Python](https://www.postgresql.org/docs/10/plpython.html), it is possible to use in the implementation of the extension functions.
+This is an extension for Postgresql database that allows you to perform simple statistical analyzes and machine learning tasks privately using Differential Privacy. 
+The extension uses the Python library [DiffPrivLib](https://github.com/IBM/differential-privacy-library),that thanks to the use of language [Pl/Python](https://www.postgresql.org/docs/10/plpython.html), it is possible to use in the implementation of the extension functions.
 ## Prerequisites:
-1. Install Python via PostgreSQL Language Pack
+1. Install Python via PostgreSQL Language Pack.
 2. Install DiffPrivLib using the command "pip install diffprivlib", and install the library pickle using the command "pip install pickle".
-3. Set the environmment variable PYTHONHOME
-4. Install the extension Pl/Python in the database using the command: "create extension plpython3u"
+3. Set the environmment variable PYTHONHOME.
+4. Install the extension Pl/Python in the database using the command: "create extension plpython3u".
 5. Put diffprivlib.control and diffprivlib--1.0.sql in the “SHAREDIR/extension” directory located in the PostgreSQL installation directory. Alternatively you can create a makefile, and run the command "Make install".
-6. Install the extension DiffPrivLib in the database using the command: "create extension diffprivlib"
+6. Install the extension DiffPrivLib in the database using the command: "create extension diffprivlib".
 ## Structure:
 The extension is divided into two modules: statistical functions and machine learning.
-
+it is possible to set the epsilon parameters and computation limits (used to calibrate the sensitivity), in the following ways, listed in order of priority:
+- Parameters of functions / aggregate functions.
+- Session parameters (set using the set_epsi and set_bounds functions.
+- Default values.
 ### Statistical Functions
 This set of features aims to replicate the predefined aggregate functions of "PostgreSQL" that allow you to do simple statistical analyzes on data samples (eg avg, sum, etc. ..), adding noise modeled through Differential Privacy mechanisms.
-There are several versions of aggregate functions. The versions differ in the number of parameters they can receive. Infact, it is possible to pass only the data sample to the aggregate function, or to add other parameters: epsilon and the limits of the computation (used for the calculation of sensitivity).
 The functions created are as follows:
 | Aggregate Function  | Functionality |
 | ------------- | ------------- |
@@ -40,8 +42,6 @@ In addition, the “Principal Component Analysis” and the “Standard Scaler�
 ### Statistical Functions
 Let's imagine that we want to calculate in a differentially private way the average of the insurance costs of a set of individuals in the "insurance" table:
 ```
-select dp_avg(charges) from insurance;
-select dp_avg(charges,0.8) from insurance;
 select dp_avg(chrges,0.8,1000,1400) from insurance;
 ```
 ### Machine Learning Models
